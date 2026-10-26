@@ -1,222 +1,464 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#6d4aff">
-<title>Inflable Time | Control de brincolín</title>
+<title>Portal de actividades y ventas</title>
 <style>
-:root{--purple:#6d4aff;--purple2:#8b6bff;--ink:#20213a;--muted:#74758d;--bg:#f5f6ff;--line:#e8e8f3;--green:#16a085;--red:#e74c70;--amber:#f2a93b}
-*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 5% 0%,#e8e1ff 0,transparent 28rem),radial-gradient(circle at 100% 12%,#d9fbf1 0,transparent 24rem),var(--bg);font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--ink)}
-button,input{font:inherit}button{cursor:pointer;border:0}.shell{width:min(1180px,calc(100% - 30px));margin:auto;padding:25px 0 38px}
-header{display:flex;justify-content:space-between;align-items:center;gap:15px;margin-bottom:24px}.brand{display:flex;align-items:center;gap:12px}.logo{width:50px;height:50px;border-radius:17px;display:grid;place-items:center;font-size:27px;background:linear-gradient(135deg,var(--purple),#aa97ff);box-shadow:0 10px 25px #6d4aff35;color:#fff}h1{margin:0;font-size:clamp(1.3rem,3vw,1.8rem);letter-spacing:-.05em}.sub{margin:4px 0 0;color:var(--muted);font-size:.9rem}.limit-pill{background:#fff;border:1px solid var(--line);border-radius:999px;padding:11px 15px;font-weight:850;white-space:nowrap}.limit-pill b{color:var(--purple)}
-.hero{display:grid;grid-template-columns:1.1fr .9fr;gap:18px;margin-bottom:20px}.panel{background:#fff;border:1px solid var(--line);border-radius:24px;box-shadow:0 15px 45px #30235c0b;overflow:hidden}.intro{padding:25px}.eyebrow{text-transform:uppercase;letter-spacing:.12em;color:var(--muted);font-size:.72rem;font-weight:900}.intro h2{font-size:1.45rem;letter-spacing:-.04em;margin:7px 0 9px}.intro p{margin:0;color:var(--muted);line-height:1.55;font-size:.92rem;max-width:590px}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding:0 22px 22px}.stat{background:#f8f7ff;border-radius:15px;padding:13px}.stat strong{display:block;font-size:1.45rem;letter-spacing:-.04em}.stat span{font-size:.75rem;color:var(--muted);font-weight:750}
-.add-panel{padding:22px}.add-panel h2{font-size:1.12rem;margin:5px 0 0}.form{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:17px}.field{display:flex;flex-direction:column;gap:7px;min-width:0}.field.full{grid-column:1/-1}label{font-size:.8rem;font-weight:800;color:#555670}input{width:100%;min-width:0;border:1px solid #e3e3f0;border-radius:12px;padding:12px 13px;background:#fbfbff;outline:none}input:focus{border-color:#9a87ff;box-shadow:0 0 0 3px #6d4aff18}.btn{border-radius:13px;padding:13px 15px;font-weight:850;display:inline-flex;justify-content:center;align-items:center;gap:8px;transition:transform .15s,filter .15s}.btn:hover{filter:brightness(1.04);transform:translateY(-1px)}.btn:active{transform:none}.primary{background:linear-gradient(135deg,var(--purple),var(--purple2));color:#fff;box-shadow:0 8px 18px #6d4aff2e}.soft{background:#f0edff;color:#5842b3}.dark{background:#282842;color:#fff}.danger{background:#fff0f3;color:#bc3657}.add-panel .btn{width:100%;margin-top:14px}.hint{color:var(--muted);font-size:.76rem;line-height:1.45;margin:10px 0 0}
-.rentals-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:25px 2px 14px}.rentals-head h2{margin:0;font-size:1.25rem;letter-spacing:-.03em}.filters{display:flex;gap:8px;flex-wrap:wrap}.filter{background:#fff;border:1px solid var(--line);border-radius:999px;padding:8px 12px;font-size:.8rem;font-weight:800;color:var(--muted)}.filter.active{background:#eee9ff;color:var(--purple);border-color:#d9d0ff}
-.rental-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px}.rental{background:#fff;border:1px solid var(--line);border-radius:22px;box-shadow:0 12px 30px #30235c09;overflow:hidden;min-width:0}.rental-top{padding:17px 18px 0;display:flex;justify-content:space-between;align-items:flex-start;gap:8px}.person{font-weight:900;font-size:1rem;overflow-wrap:anywhere}.person-sub{color:var(--muted);font-size:.77rem;margin-top:4px;overflow-wrap:anywhere}.badge{border-radius:999px;padding:7px 9px;font-size:.7rem;font-weight:900;white-space:nowrap;background:#e5faf4;color:#09866b}.badge.done{background:#fff0f3;color:#c33c5d}.badge.paused{background:#fff6e4;color:#a56b0b}
-.clock-wrap{padding:15px 18px 17px;display:flex;align-items:center;gap:15px}.clock{--p:0%;width:112px;aspect-ratio:1;border-radius:50%;background:conic-gradient(var(--purple) var(--p),#efedff 0);display:grid;place-items:center;position:relative;flex-shrink:0}.clock::before{content:"";position:absolute;inset:7px;background:white;border-radius:50%}.clock-inner{position:relative;text-align:center}.clock-time{font-size:1.5rem;font-weight:950;letter-spacing:-.06em;font-variant-numeric:tabular-nums}.clock-label{font-size:.66rem;color:var(--muted);font-weight:800;margin-top:3px}.timer-info{min-width:0}.timer-info strong{font-size:.86rem;display:block;margin-bottom:5px}.timer-info span{font-size:.78rem;color:var(--muted);line-height:1.45;display:block}.progress{height:7px;background:#f0eff8;border-radius:999px;margin-top:10px;overflow:hidden}.progress span{display:block;height:100%;width:100%;background:linear-gradient(90deg,#23c7a4,#83e6c8);border-radius:999px}.progress span.warning{background:linear-gradient(90deg,#ffb547,#ff8e6b)}.progress span.expired{background:var(--red)}
-.rental-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:0 17px 17px}.rental-actions .btn{font-size:.78rem;padding:10px 8px}.rental-actions .btn.finish{grid-column:1/-1}.empty{grid-column:1/-1;background:#fff;border:1px dashed #d8d6ec;border-radius:22px;padding:38px 20px;text-align:center;color:var(--muted);line-height:1.6}.empty .emoji{font-size:2.2rem;margin-bottom:7px}.empty strong{display:block;color:var(--ink);margin-bottom:3px}.footer{text-align:center;color:#898aa1;font-size:.76rem;margin-top:24px}.toast{position:fixed;left:50%;bottom:20px;transform:translate(-50%,20px);opacity:0;pointer-events:none;background:#252540;color:#fff;border-radius:14px;padding:13px 18px;box-shadow:0 10px 30px #1b173a33;font-size:.87rem;font-weight:750;z-index:5;transition:.22s;text-align:center;max-width:calc(100% - 25px)}.toast.show{opacity:1;transform:translate(-50%,0)}
-@media(max-width:950px){.hero{grid-template-columns:1fr}.rental-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media(max-width:600px){.shell{width:calc(100% - 20px);padding-top:15px}header{align-items:flex-start;flex-direction:column}.limit-pill{align-self:stretch;text-align:center}.intro,.add-panel{padding:19px}.stats{padding:0 15px 15px;gap:7px}.stat{padding:10px}.stat strong{font-size:1.25rem}.stat span{font-size:.69rem}.form{grid-template-columns:1fr}.field.full{grid-column:auto}.rentals-head{align-items:flex-start;flex-direction:column}.rental-grid{grid-template-columns:1fr}.clock{width:105px}.rental-top{padding:16px 16px 0}.clock-wrap{padding:14px 16px}.rental-actions{padding:0 16px 16px}.rental-actions .btn{font-size:.82rem}}
-@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+:root {
+  --bg: #f4f6fb;
+  --ink: #20243a;
+  --muted: #687087;
+  --purple: #6546e8;
+  --pink: #ed5794;
+}
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: Arial, sans-serif;
+  color: var(--ink);
+  background:
+    radial-gradient(circle at 8% 0, #e8e1ff, transparent 30%),
+    radial-gradient(circle at 100% 10%, #ffe3ef, transparent 28%),
+    var(--bg);
+}
+
+.wrap {
+  width: min(1100px, calc(100% - 28px));
+  margin: auto;
+  padding: 30px 0 40px;
+}
+
+header {
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+.brand {
+  display: inline-grid;
+  place-items: center;
+  width: 68px;
+  height: 68px;
+  border-radius: 20px;
+  background: linear-gradient(135deg, var(--purple), var(--pink));
+  font-size: 34px;
+}
+
+h1 {
+  font-size: clamp(1.7rem, 4vw, 2.7rem);
+  margin: 15px 0 8px;
+}
+
+header p, .folder, .lock, footer {
+  color: var(--muted);
+}
+
+.notice {
+  margin: 20px auto 0;
+  max-width: 760px;
+  padding: 12px;
+  background: white;
+  border-radius: 12px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.teacher {
+  background: linear-gradient(#fffdf3, #fff);
+  border: 3px solid #d5b45e;
+  outline: 1px solid #fff3c9;
+  outline-offset: -8px;
+  border-radius: 8px;
+  padding: 18px;
+  box-shadow: 5px 6px 0 #b9933e;
+  display: flex;
+  flex-direction: column;
+  min-height: 245px;
+  transition: transform .2s;
+}
+
+.teacher:hover {
+  transform: translateY(-4px) rotate(-.5deg);
+}
+
+.teacher::before {
+  content: "✦ LOTERÍA ✦";
+  text-align: center;
+  color: #9c7622;
+  font-weight: 900;
+  letter-spacing: 4px;
+  border-bottom: 1px solid #e4d29a;
+  padding-bottom: 10px;
+  margin-bottom: 14px;
+}
+
+.card-top {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.icon {
+  display: grid;
+  place-items: center;
+  width: 60px;
+  height: 60px;
+  flex-shrink: 0;
+  border: 2px solid #d9bd6c;
+  border-radius: 50%;
+  background: #fff7d9;
+  font-size: 30px;
+}
+
+.teacher h2 {
+  font-family: Georgia, serif;
+  font-size: 1.05rem;
+  text-transform: uppercase;
+  margin: 0 0 5px;
+}
+
+.folder {
+  font-size: .8rem;
+  overflow-wrap: anywhere;
+}
+
+.items {
+  line-height: 1.8;
+  padding-left: 20px;
+  margin: 15px 0;
+}
+
+.open {
+  width: 100%;
+  margin-top: auto;
+  padding: 12px;
+  border: 2px solid #d9bd6c;
+  border-radius: 8px;
+  background: linear-gradient(135deg, var(--purple), #8a56ed);
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.open + .open {
+  margin-top: 8px;
+}
+
+.open:hover {
+  filter: brightness(1.1);
+}
+
+.lock {
+  text-align: center;
+  font-size: .78rem;
+  margin-top: 10px;
+}
+
+footer {
+  text-align: center;
+  font-size: .82rem;
+  margin-top: 28px;
+}
+
+/* Ventana para ingresar contraseña */
+.modal {
+  position: fixed;
+  inset: 0;
+  background: #16152bcc;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 18px;
+  z-index: 10;
+}
+
+.modal.show {
+  display: flex;
+}
+
+.dialog {
+  background: white;
+  border-radius: 20px;
+  width: min(430px, 100%);
+  padding: 25px;
+  box-shadow: 0 25px 70px #0004;
+}
+
+.loteria {
+  width: 90px;
+  height: 115px;
+  margin: 0 auto 15px;
+  border: 3px solid #d5b45e;
+  border-radius: 9px;
+  background: linear-gradient(145deg, #fff9e7, #f5e5b8);
+  box-shadow: 4px 5px 0 #b9933e;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  transform: rotate(-3deg);
+}
+
+.loteria span {
+  display: block;
+  font-size: 38px;
+}
+
+.loteria small {
+  font-weight: bold;
+  letter-spacing: 2px;
+}
+
+.dialog h2, .dialog p {
+  text-align: center;
+}
+
+.dialog p {
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 7px;
+}
+
+input {
+  width: 100%;
+  padding: 13px;
+  border: 1px solid #d9dce8;
+  border-radius: 10px;
+  font-size: 1rem;
+}
+
+.error {
+  display: none;
+  color: #c52f55;
+  font-size: .85rem;
+  margin-top: 9px;
+}
+
+.error.show {
+  display: block;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.modal-actions button {
+  flex: 1;
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.submit {
+  background: var(--purple);
+  color: white;
+}
+
+.security-note {
+  font-size: .75rem;
+  margin-top: 18px;
+}
+
+@media (max-width: 800px) {
+  .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 540px) {
+  .grid { grid-template-columns: 1fr; }
+  .teacher { min-height: 0; }
+}
 </style>
 </head>
 <body>
-<main class="shell">
-<header>
-  <div class="brand"><div class="logo">🎈</div><div><h1>Inflable <span style="color:var(--purple)">Time</span></h1><p class="sub">Control de turnos para el brincolín</p></div></div>
-  <div class="limit-pill">⏱️ Tiempo máximo por turno: <b>15 minutos</b></div>
-</header>
+<div class="wrap">
+  <header>
+    <div class="brand">🎴</div>
+    <h1>Portal de actividades</h1>
+    <p>Elige una carta de lotería e ingresa la contraseña correspondiente.</p>
+    <div class="notice">🔐 Cada profesor cuenta con una contraseña propia.</div>
+  </header>
 
-<section class="hero">
-  <div class="panel">
-    <div class="intro"><div class="eyebrow">Panel de control</div><h2>¡Todos los turnos bajo control!</h2><p>Registra a cada persona que suba al brincolín. Cada renta tiene su propio contador independiente de 15 minutos, para que puedas controlar a varias personas al mismo tiempo.</p></div>
-    <div class="stats">
-      <div class="stat"><strong id="activeCount">0</strong><span>En el brincolín</span></div>
-      <div class="stat"><strong id="finishedCount">0</strong><span>Turnos terminados</span></div>
-      <div class="stat"><strong id="totalMoney">$0</strong><span>Total registrado</span></div>
-    </div>
-  </div>
-  <section class="panel add-panel">
-    <div class="eyebrow">Nuevo turno</div><h2>Registrar persona</h2>
-    <form id="rentalForm">
-      <div class="form">
-        <div class="field"><label for="firstName">Nombre</label><input id="firstName" placeholder="Ej. Sofía" autocomplete="given-name" required maxlength="60"></div>
-        <div class="field"><label for="lastName">Apellido</label><input id="lastName" placeholder="Ej. Hernández" autocomplete="family-name" required maxlength="60"></div>
-        <div class="field full"><label for="operator">Operador responsable</label><input id="operator" placeholder="Nombre del operador" required maxlength="80"></div>
+  <main class="grid">
+    <article class="teacher">
+      <div class="card-top">
+        <div class="icon">📸</div>
+        <div><h2>Prof. Augusto</h2><div class="folder">prof-augusto</div></div>
       </div>
-      <button class="btn primary" type="submit">＋ Iniciar turno de 15 min</button>
-      <p class="hint">Cada turno cuesta $20 y dura como máximo 15 minutos. Puedes registrar a otra persona sin detener los contadores que ya están corriendo.</p>
-    </form>
-  </section>
-</section>
+      <ul class="items"><li>Fotomaton</li></ul>
+      <button class="open" data-access="augusto">🎴 Entrar</button>
+      <div class="lock">🔒 Acceso con contraseña</div>
+    </article>
 
-<div class="rentals-head">
-  <h2>👟 Personas y contadores</h2>
-  <div class="filters" role="group" aria-label="Filtrar turnos">
-    <button class="filter active" data-filter="all">Todos</button>
-    <button class="filter" data-filter="active">En curso</button>
-    <button class="filter" data-filter="done">Terminados</button>
+    <article class="teacher">
+      <div class="card-top">
+        <div class="icon">🏰</div>
+        <div><h2>Profe Karla</h2><div class="folder">profe-karla</div></div>
+      </div>
+      <ul class="items"><li>Inflable</li></ul>
+      <button class="open" data-access="karla">🎴 Entrar</button>
+      <div class="lock">🔒 Acceso con contraseña</div>
+    </article>
+
+    <article class="teacher">
+      <div class="card-top">
+        <div class="icon">🎨</div>
+        <div><h2>Profe Lilia Emir</h2><div class="folder">profe-lilia-emir</div></div>
+      </div>
+      <ul class="items">
+        <li>Pinta caritas</li>
+        <li>Paquete sorpresa</li>
+        <li>Caja sorpresa</li>
+      </ul>
+      <button class="open" data-access="lilia">🎴 Entrar</button>
+      <div class="lock">🔒 Acceso con contraseña</div>
+    </article>
+
+    <article class="teacher">
+      <div class="card-top">
+        <div class="icon">🥞</div>
+        <div><h2>Profe Molina</h2><div class="folder">profe-molina</div></div>
+      </div>
+      <ul class="items">
+        <li>Crepas</li>
+        <li>Pies</li>
+        <li>Toro mecánico</li>
+      </ul>
+      <button class="open" data-access="molinaCrepas">🎴 Crepas</button>
+      <button class="open" data-access="molinaPies">🎴 Pies</button>
+      <button class="open" data-access="molinaToro">🎴 Toro mecánico</button>
+      <div class="lock">🔒 La misma contraseña para las tres actividades</div>
+    </article>
+
+    <article class="teacher">
+      <div class="card-top">
+        <div class="icon">💍</div>
+        <div><h2>Profe Xochil</h2><div class="folder">profe-xochil</div></div>
+      </div>
+      <ul class="items"><li>Registro civil de bodas</li></ul>
+      <button class="open" data-access="xochil">🎴 Entrar</button>
+      <div class="lock">🔒 Acceso con contraseña</div>
+    </article>
+  </main>
+
+  <footer>Portal local · Conserva los archivos dentro de sus carpetas.</footer>
+</div>
+
+<div class="modal" id="modal" role="dialog" aria-modal="true">
+  <div class="dialog">
+    <div class="loteria">
+      <div><span id="lotIcon">🎴</span><small>LA CARTA</small></div>
+    </div>
+    <h2 id="modalTitle">Acceso protegido</h2>
+    <p>La carta se ha volteado. Escribe tu contraseña para continuar.</p>
+    <form id="passwordForm">
+      <label for="password">Contraseña</label>
+      <input id="password" type="password" placeholder="Escribe tu contraseña" required>
+      <div class="error" id="error">Contraseña incorrecta. Inténtalo de nuevo.</div>
+      <div class="modal-actions">
+        <button type="button" id="cancel">Cancelar</button>
+        <button type="submit" class="submit">Entrar</button>
+      </div>
+    </form>
+    <p class="security-note">Aviso: las contraseñas guardadas en HTML pueden descubrirse inspeccionando el código. Para protección real, utiliza autenticación en servidor.</p>
   </div>
 </div>
-<section class="rental-grid" id="rentalGrid" aria-live="polite"></section>
-<p class="footer">Inflable Time · Un contador independiente para cada turno · Los datos se guardan en este navegador</p>
-</main>
-<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
 <script>
 (() => {
-  "use strict";
-  const LIMIT = 15 * 60 * 1000;
-  const PRICE = 20;
-  const KEY = "inflableTimeMultiRentas_v1";
-  const $ = id => document.getElementById(id);
-  let rentals = load();
-  let filter = "all";
-  let toastTimer;
-
-  function load() {
-    try {
-      const data = JSON.parse(localStorage.getItem(KEY) || "[]");
-      if (!Array.isArray(data)) return [];
-      // Do not resume old active timers after a page reload: compute remaining time from saved end time.
-      return data.map(r => {
-        if (r.status === "active" && r.endAt <= Date.now()) return {...r, status:"done", remaining:0, finishedAt:r.endAt};
-        if (r.status === "active") return {...r, remaining:Math.max(0, r.endAt - Date.now())};
-        return r;
-      });
-    } catch (_) { return []; }
-  }
-  function save() {
-    try { localStorage.setItem(KEY, JSON.stringify(rentals)); }
-    catch (_) { notify("No se pudo guardar en el navegador. Exporta o revisa el almacenamiento."); }
-  }
-  function money(n) { return new Intl.NumberFormat("es-MX",{style:"currency",currency:"MXN",maximumFractionDigits:0}).format(n); }
-  function escapeHTML(s) { return String(s ?? "").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c])); }
-  function clock(ms) {
-    const seconds = Math.max(0, Math.ceil(ms / 1000));
-    return `${String(Math.floor(seconds/60)).padStart(2,"0")}:${String(seconds%60).padStart(2,"0")}`;
-  }
-  function dateTime(ts) {
-    return new Intl.DateTimeFormat("es-MX",{hour:"2-digit",minute:"2-digit"}).format(new Date(ts));
-  }
-  function notify(msg) {
-    $("toast").textContent = msg;
-    $("toast").classList.add("show");
-    clearTimeout(toastTimer);
-    toastTimer = setTimeout(()=>$("toast").classList.remove("show"),2800);
-  }
-  function startRental(event) {
-    event.preventDefault();
-    const first = $("firstName").value.trim();
-    const last = $("lastName").value.trim();
-    const operator = $("operator").value.trim();
-    if (!first || !last || !operator) { notify("Completa el nombre, apellido y operador."); return; }
-    const now = Date.now();
-    const rental = {
-      id: (now + Math.random()).toString(36).replace(".",""),
-      first, last, operator, startAt:now, endAt:now + LIMIT,
-      remaining:LIMIT, status:"active", price:PRICE, finishedAt:null
-    };
-    rentals.unshift(rental);
-    save();
-    $("rentalForm").reset();
-    $("firstName").focus();
-    render();
-    notify(`Turno iniciado para ${first} ${last}. ¡15 minutos!`);
-  }
-  function finishRental(id, automatic=false) {
-    const r = rentals.find(x=>x.id===id);
-    if (!r || r.status !== "active") return;
-    r.status = "done";
-    r.remaining = Math.max(0, r.endAt-Date.now());
-    r.finishedAt = Date.now();
-    save(); render();
-    notify(automatic ? `⏰ Terminó el turno de ${r.first} ${r.last}.` : `Turno de ${r.first} ${r.last} finalizado.`);
-  }
-  function removeRental(id) {
-    const r = rentals.find(x=>x.id===id);
-    if (!r) return;
-    if (!confirm(`¿Eliminar el registro de ${r.first} ${r.last}?`)) return;
-    rentals = rentals.filter(x=>x.id!==id);
-    save(); render(); notify("Registro eliminado.");
-  }
-  function tick() {
-    const now = Date.now();
-    let changed = false;
-    rentals.forEach(r=>{
-      if (r.status==="active") {
-        r.remaining = Math.max(0,r.endAt-now);
-        if (r.remaining<=0) {
-          r.status="done"; r.finishedAt=r.endAt; changed=true;
-          try { if ("vibrate" in navigator) navigator.vibrate([200,100,200]); } catch(_){}
-          notify(`⏰ ¡Tiempo terminado para ${r.first} ${r.last}!`);
-        }
-      }
-    });
-    if (changed) save();
-    render();
-  }
-  function card(r) {
-    const active = r.status==="active";
-    const remaining = active ? Math.max(0,r.endAt-Date.now()) : 0;
-    const elapsed = Math.min(LIMIT, Math.max(0, LIMIT-remaining));
-    const progress = Math.min(100, elapsed/LIMIT*100);
-    const warning = active && remaining <= 3*60*1000;
-    const badge = active ? (warning ? "¡Quedan 3 min o menos!" : "En curso") : "Turno terminado";
-    const badgeClass = active ? "" : "done";
-    const timeLabel = active ? "TIEMPO RESTANTE" : "TIEMPO CUMPLIDO";
-    const timeValue = active ? clock(remaining) : "00:00";
-    const endText = active ? `Termina aprox. ${dateTime(r.endAt)}` : `Finalizó ${dateTime(r.finishedAt || r.endAt)}`;
-    return `<article class="rental">
-      <div class="rental-top">
-        <div><div class="person">${escapeHTML(r.first)} ${escapeHTML(r.last)}</div><div class="person-sub">Operador: ${escapeHTML(r.operator)}</div></div>
-        <span class="badge ${badgeClass}">${badge}</span>
-      </div>
-      <div class="clock-wrap">
-        <div class="clock" style="--p:${progress}%"><div class="clock-inner"><div class="clock-time">${timeValue}</div><div class="clock-label">${timeLabel}</div></div></div>
-        <div class="timer-info"><strong>Turno de 15 minutos</strong><span>Inicio: ${dateTime(r.startAt)}</span><span>${endText}</span><div class="progress"><span class="${active?(warning?"warning":""):"expired"}" style="width:${active?Math.max(0,100-progress):100}%"></span></div></div>
-      </div>
-      <div class="rental-actions">
-        ${active ? `<button class="btn soft" data-action="finish" data-id="${r.id}">✓ Finalizar turno</button>` : `<button class="btn soft" data-action="remove" data-id="${r.id}">✕ Eliminar registro</button>`}
-        <button class="btn dark" data-action="details" data-id="${r.id}">ℹ Detalles</button>
-      </div>
-    </article>`;
-  }
-  function render() {
-    const active = rentals.filter(r=>r.status==="active");
-    const done = rentals.filter(r=>r.status==="done");
-    $("activeCount").textContent = active.length;
-    $("finishedCount").textContent = done.length;
-    $("totalMoney").textContent = money(rentals.length*PRICE);
-    const visible = rentals.filter(r=>filter==="all" || (filter==="active" ? r.status==="active" : r.status==="done"));
-    const grid = $("rentalGrid");
-    if (!visible.length) {
-      const message = filter==="active" ? "No hay turnos en curso." : filter==="done" ? "Todavía no hay turnos terminados." : "Registra a la primera persona para comenzar.";
-      grid.innerHTML = `<div class="empty"><div class="emoji">🎈</div><strong>${message}</strong>Cuando inicies un turno, su contador aparecerá aquí.</div>`;
-      return;
+  const access = {
+    augusto: {
+      name: "Prof. Augusto", icon: "📸",
+      password: "Augu!2026_Foto#84",
+      url: "prof-augusto/fotomaton.html"
+    },
+    karla: {
+      name: "Profe Karla", icon: "🏰",
+      password: "Karla#Inflable_73!Q",
+      url: "profe-karla/inflable.html"
+    },
+    lilia: {
+      name: "Profe Lilia Emir", icon: "🎁",
+      password: "Lilia!Sorpresa_62#M",
+      url: "profe-lilia-emir/prof-lilia.html"
+    },
+    molinaCrepas: {
+      name: "Profe Molina · Crepas", icon: "🥞",
+      password: "Molina_Crepas!58#T",
+      url: "profe-molina/crepas.html"
+    },
+    molinaPies: {
+      name: "Profe Molina · Pies", icon: "🥧",
+      password: "Molina_Crepas!58#T",
+      url: "profe-molina/pies.html"
+    },
+    molinaToro: {
+      name: "Profe Molina · Toro mecánico", icon: "🐂",
+      password: "Molina_Crepas!58#T",
+      url: "profe-molina/Toro_mecanico.html"
+    },
+    xochil: {
+      name: "Profe Xochil", icon: "💍",
+      password: "Xochil!Bodas_91#R",
+      url: "profe-xochil/registro-civil.html"
     }
-    grid.innerHTML = visible.map(card).join("");
-  }
-  $("rentalForm").addEventListener("submit", startRental);
-  document.querySelectorAll("[data-filter]").forEach(btn=>btn.addEventListener("click",()=>{
-    filter=btn.dataset.filter;
-    document.querySelectorAll("[data-filter]").forEach(b=>b.classList.toggle("active",b===btn));
-    render();
-  }));
-  $("rentalGrid").addEventListener("click",event=>{
-    const button=event.target.closest("button[data-action]");
-    if(!button)return;
-    const r=rentals.find(x=>x.id===button.dataset.id);
-    if(!r)return;
-    if(button.dataset.action==="finish") finishRental(r.id,false);
-    if(button.dataset.action==="remove") removeRental(r.id);
-    if(button.dataset.action==="details") {
-      const status=r.status==="active" ? `Quedan ${clock(Math.max(0,r.endAt-Date.now()))}` : "Turno terminado";
-      alert(`Cliente: ${r.first} ${r.last}\nOperador: ${r.operator}\nInicio: ${new Date(r.startAt).toLocaleString("es-MX")}\n${status}\nPrecio: ${money(PRICE)}`);
+  };
+
+  const modal = document.getElementById("modal");
+  const form = document.getElementById("passwordForm");
+  const password = document.getElementById("password");
+  const error = document.getElementById("error");
+  let selected = null;
+
+  document.querySelectorAll("[data-access]").forEach(button => {
+    button.addEventListener("click", () => {
+      selected = access[button.dataset.access];
+      document.getElementById("modalTitle").textContent = selected.name;
+      document.getElementById("lotIcon").textContent = selected.icon;
+      password.value = "";
+      error.classList.remove("show");
+      modal.classList.add("show");
+      password.focus();
+    });
+  });
+
+  document.getElementById("cancel").addEventListener("click", () => {
+    modal.classList.remove("show");
+  });
+
+  modal.addEventListener("click", event => {
+    if (event.target === modal) modal.classList.remove("show");
+  });
+
+  document.addEventListener("keydown", event => {
+    if (event.key === "Escape") modal.classList.remove("show");
+  });
+
+  form.addEventListener("submit", event => {
+    event.preventDefault();
+    if (!selected) return;
+
+    if (password.value === selected.password) {
+      window.location.href = encodeURI(selected.url);
+    } else {
+      error.classList.add("show");
+      password.select();
     }
   });
-  render();
-  setInterval(tick,250);
 })();
 </script>
 </body>
